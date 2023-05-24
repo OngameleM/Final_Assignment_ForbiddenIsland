@@ -1,54 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class CardManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public static CardManager instance;
-    [SerializeField]
-    private List<Sprite> cardSprites;
-    [SerializeField]
-    private GameObject cardHolder, cardPrefab, mockCards;
-    private int code;
-    private CardShow selectedCard;
+    public List<Card> deck = new List<Card>();
+    public List<Card> discardPile = new List<Card>();
+    public Transform[] cardSlots;
+    public bool[] availableCardSlots;
 
-    public CardShow SelectedCard { get => selectedCard; }
+    public TextMeshProUGUI deckSizeText;
+    public TextMeshProUGUI discardPileText;
 
-    private void Awake()
+    public void DrawCard()
     {
-        if (instance==null)
+        if (deck.Count >= 1)
         {
-            instance = this;
-        }
-    }
-    private void Start()
-    {
-        for (int i = 0; i < 13; i++)
-        {
-            code = i;
-            SpawnCard();
-        }
-    }
-    public void SetSelectedCard(CardShow card)
-    {
-        selectedCard = card;
-    }
+            Card randCard = deck[Random.Range(0, deck.Count)];
 
-    public void Release()
-    {
-        if (selectedCard != null)
-        {
-            selectedCard = null;
+            for (int i = 0; i < availableCardSlots.Length; i++)
+            {
+                if (availableCardSlots[i] == true)
+                {
+                    randCard.gameObject.SetActive(true);
+                    randCard.handIndex = i;
+                    randCard.transform.position = cardSlots[i].position;
+                    availableCardSlots[i] = false;
+                    deck.Remove(randCard);
+                    return;
+                }
+            }
         }
     }
 
-    // Update is called once per frame
-    void SpawnCard()
+    private void Update()
     {
-        GameObject card = Instantiate(cardPrefab);
-        card.name = "Card " + code;
-        card.transform.SetParent(cardHolder.transform);
-        card.GetComponent<CardShow>().SetImg(cardSprites[code]);
+        deckSizeText.text = deck.Count.ToString();
+        discardPileText.text = discardPile.Count.ToString();
     }
 }
