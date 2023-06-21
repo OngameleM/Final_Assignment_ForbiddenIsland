@@ -58,45 +58,31 @@ public class TurnManage : MonoBehaviour
 
     public void PlayerTurnButtonPressed()
     {
-        playerEnabledButtonsCount = 0; // Reset the player's enabled buttons count
+        playerEnabledButtonsCount = 0;
 
         foreach (Button button in playerButtons)
         {
-            button.interactable = true; // Enable all player buttons
+            button.interactable = true;
         }
 
-        yourTurnButton.interactable = false; // Disable your turn button
-        opponentTurnButton.interactable = true; // Enable opponent's turn button
+        separateButton.interactable = opponentEnabledButtonsCount == maxEnabledButtons;
 
-        if (opponentEnabledButtonsCount == maxEnabledButtons)
-        {
-            separateButton.interactable = true;
-        }
-        else
-        {
-            separateButton.interactable = false;
-        }
+        yourTurnButton.interactable = false;
+        opponentTurnButton.interactable = true;
     }
 
     public void OpponentTurnButtonPressed()
     {
-        opponentEnabledButtonsCount = 0; // Reset the opponent's enabled buttons count
+        opponentEnabledButtonsCount = 0;
 
         foreach (Button button in opponentButtons)
         {
-            button.interactable = true; // Enable all opponent buttons
+            button.interactable = true;
         }
 
-        yourTurnButton.interactable = true; // Enable your turn button
-        opponentTurnButton.interactable = false; // Disable opponent's turn button
+        separateButton.interactable = playerEnabledButtonsCount == maxEnabledButtons;
 
-        if (playerEnabledButtonsCount == maxEnabledButtons)
-        {
-            separateButton.interactable = true;
-        }
-        else
-        {
-            separateButton.interactable = false;
-        }
+        yourTurnButton.interactable = true;
+        opponentTurnButton.interactable = false;
     }
 }
