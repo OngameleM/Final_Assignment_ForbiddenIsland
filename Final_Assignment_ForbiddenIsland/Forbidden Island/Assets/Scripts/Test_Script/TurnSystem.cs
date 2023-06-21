@@ -7,52 +7,47 @@ using UnityEngine.UI;
 public class TurnSystem : MonoBehaviour
 {
     public bool PlayersTurn;
-    public int YourTurn;
+    public int YourTurn = 0; 
     public int OpponentTurn;
     public TMP_Text TurnText;
 
-    //might delete the handlimit its represent mana
-    //refer to the ruleset, number of cards that the player need to pick or have. 
-    public int maxHandLimit;
-    public int currentHandLimit;
-    public TMP_Text handLimitText;
+    public Canvas yourTurnCanvas;
+    public Canvas opponentTurnCanvas;
 
     void Start()
     {
         PlayersTurn = true;
-        YourTurn = 1;
         OpponentTurn = 0;
 
-        maxHandLimit = 1;
-        currentHandLimit = 1;
+        yourTurnCanvas.gameObject.SetActive(false);
+        opponentTurnCanvas.gameObject.SetActive(true);
     }
 
-    
     void Update()
     {
         if (PlayersTurn == true)
         {
             TurnText.text = "YOUR TURN";
+            yourTurnCanvas.gameObject.SetActive(true);
+            opponentTurnCanvas.gameObject.SetActive(false);
         }
         else
         {
             TurnText.text = "OPPONENT's TURN";
+            yourTurnCanvas.gameObject.SetActive(false);
+            opponentTurnCanvas.gameObject.SetActive(true);
         }
-
-        handLimitText.text = currentHandLimit + "/" + maxHandLimit;
     }
+
     public void YourTurnEnds()
     {
         PlayersTurn = false;
         OpponentTurn += 1;
     }
+
     public void OpponentTurnEnds()
     {
         PlayersTurn = true;
         YourTurn += 1;
-
-        maxHandLimit += 1;
-        currentHandLimit = maxHandLimit;
     }
-   
 }
