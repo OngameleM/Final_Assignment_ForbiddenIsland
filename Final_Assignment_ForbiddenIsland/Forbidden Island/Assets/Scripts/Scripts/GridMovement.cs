@@ -6,12 +6,12 @@ public class GridMovement : MonoBehaviour
 {
     public float gridSizeX = 1f; 
     public float gridSizeY = 1f; 
-    public int maxSteps = 3; 
+    [SerializeField] public int maxSteps = 3; 
 
     private bool isMoving;
     private Vector3 origPos, targetPos;
     private float timeToMove = 0.2f;
-    private int stepsTaken = 0;
+    [SerializeField] private int stepsTaken = 0;
 
     // Update is called once per frame
     void Update()

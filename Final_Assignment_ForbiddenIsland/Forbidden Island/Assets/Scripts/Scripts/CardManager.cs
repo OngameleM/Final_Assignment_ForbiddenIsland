@@ -14,6 +14,8 @@ public class CardManager : MonoBehaviour
     public TextMeshProUGUI deckSizeText;
     public TextMeshProUGUI discardPileText;
 
+    private Card previousCard;
+
     public void DrawCard()
     {
         if (deck.Count >= 1)
@@ -22,13 +24,19 @@ public class CardManager : MonoBehaviour
 
             for (int i = 0; i < availableCardSlots.Length; i++)
             {
-                if (availableCardSlots[i] == true)
+                if (availableCardSlots[i])
                 {
                     randCard.gameObject.SetActive(true);
                     randCard.handIndex = i;
                     randCard.transform.position = cardSlots[i].position;
                     availableCardSlots[i] = false;
                     deck.Remove(randCard);
+
+                    if (previousCard != null)
+                    {
+                        previousCard.gameObject.SetActive(false);
+                    }
+                    previousCard = randCard;
                     return;
                 }
             }
@@ -40,4 +48,6 @@ public class CardManager : MonoBehaviour
         deckSizeText.text = deck.Count.ToString();
         discardPileText.text = discardPile.Count.ToString();
     }
+
+
 }

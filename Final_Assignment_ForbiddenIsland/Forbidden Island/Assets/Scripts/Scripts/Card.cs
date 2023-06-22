@@ -10,6 +10,8 @@ public class Card : MonoBehaviour
 
     private CardManager mod;
 
+    public Transform destinationCard;
+
     private void Start()
     {
         mod = FindObjectOfType<CardManager>();
@@ -19,7 +21,7 @@ public class Card : MonoBehaviour
     {
         if (hasBeenPlayed == false)
         {
-            transform.position += Vector3.up * 5;
+            transform.position = destinationCard.position;
             hasBeenPlayed = true;
             mod.availableCardSlots[handIndex] = true;
             Invoke("MoveToDiscardPile", 2f);
@@ -27,8 +29,14 @@ public class Card : MonoBehaviour
     }
 
     void MoveToDiscardPile()
-   {
-    mod.discardPile.Add(this);
-    gameObject.SetActive(false);
-   }
+    {
+        mod.discardPile.Add(this);
+        gameObject.SetActive(false);
+    }
+
+    void MoveToSecondDiscardPile()
+    {
+        mod.discardPile.Add(this);
+        gameObject.SetActive(false);
+    }
 }

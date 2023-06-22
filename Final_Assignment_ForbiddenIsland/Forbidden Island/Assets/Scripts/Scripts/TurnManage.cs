@@ -30,7 +30,7 @@ public class TurnManage : MonoBehaviour
 
     public void PlayerButtonPressed(Button button)
     {
-        if (playerEnabledButtonsCount < maxEnabledButtons)
+        if (playerEnabledButtonsCount < maxEnabledButtons && button.interactable)
         {
             button.interactable = false;
             playerEnabledButtonsCount++;
@@ -38,13 +38,14 @@ public class TurnManage : MonoBehaviour
             if (playerEnabledButtonsCount == maxEnabledButtons)
             {
                 separateButton.interactable = true;
+                DisableAllPlayerButtonsExceptSelected();
             }
         }
     }
 
     public void OpponentButtonPressed(Button button)
     {
-        if (opponentEnabledButtonsCount < maxEnabledButtons)
+        if (opponentEnabledButtonsCount < maxEnabledButtons && button.interactable)
         {
             button.interactable = false;
             opponentEnabledButtonsCount++;
@@ -52,6 +53,7 @@ public class TurnManage : MonoBehaviour
             if (opponentEnabledButtonsCount == maxEnabledButtons)
             {
                 separateButton.interactable = true;
+                DisableAllOpponentButtonsExceptSelected();
             }
         }
     }
@@ -66,6 +68,7 @@ public class TurnManage : MonoBehaviour
         }
 
         separateButton.interactable = opponentEnabledButtonsCount == maxEnabledButtons;
+        EnableAllOpponentButtons();
 
         yourTurnButton.interactable = false;
         opponentTurnButton.interactable = true;
@@ -81,8 +84,57 @@ public class TurnManage : MonoBehaviour
         }
 
         separateButton.interactable = playerEnabledButtonsCount == maxEnabledButtons;
+        EnableAllPlayerButtons();
 
         yourTurnButton.interactable = true;
         opponentTurnButton.interactable = false;
+    }
+
+    private void DisableAllPlayerButtonsExceptSelected()
+    {
+        int disabledCount = 0;
+        foreach (Button button in playerButtons)
+        {
+            if (button.interactable)
+            {
+                button.interactable = false;
+                disabledCount++;
+            }
+
+            if (disabledCount >= maxEnabledButtons)
+                break;
+        }
+    }
+
+    private void DisableAllOpponentButtonsExceptSelected()
+    {
+        int disabledCount = 0;
+        foreach (Button button in opponentButtons)
+        {
+            if (button.interactable)
+            {
+                button.interactable = false;
+                disabledCount++;
+            }
+
+            if (disabledCount >= maxEnabledButtons)
+                break;
+        }
+    }
+
+    private void EnableAllPlayerButtons()
+    {
+        foreach (Button button in playerButtons)
+        {
+            button.interactable = true;
+        }
+    }
+
+    private void EnableAllOpponentButtons()
+    {
+        foreach (Button button in opponentButtons)
+        {
+            button.interactable = true;
+        }
     }
 }
