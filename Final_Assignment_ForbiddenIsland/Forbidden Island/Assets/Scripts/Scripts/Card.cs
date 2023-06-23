@@ -21,7 +21,8 @@ public class Card : MonoBehaviour
     {
         if (hasBeenPlayed == false)
         {
-            transform.position = destinationCard.position;
+            transform.position = destinationCard.position; 
+            transform.rotation = Quaternion.Euler(0f, 0f, -90f); 
             hasBeenPlayed = true;
             mod.availableCardSlots[handIndex] = true;
             Invoke("MoveToDiscardPile", 2f);
