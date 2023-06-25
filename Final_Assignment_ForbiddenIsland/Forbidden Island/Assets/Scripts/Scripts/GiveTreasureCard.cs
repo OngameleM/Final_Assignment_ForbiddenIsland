@@ -4,19 +4,29 @@ using UnityEngine;
 
 public class GiveTreasureCard : MonoBehaviour
 {
-    public GameObject sourceCard; 
-    public GameObject destinationCard; 
+    public Transform[] cardSlots;
+    public GameObject destinationCard;
+    public PickUp pickUpScript;
 
-    public void TransferSprite()
+    public void TransferSprites()
     {
-        SpriteRenderer sourceRenderer = sourceCard.GetComponent<SpriteRenderer>();
+        Debug.Log("Transfer!");
+
         SpriteRenderer destinationRenderer = destinationCard.GetComponent<SpriteRenderer>();
 
-        if (sourceRenderer != null && destinationRenderer != null)
+        if (pickUpScript.deck.Count > 0 && destinationRenderer != null)
         {
-            destinationRenderer.sprite = sourceRenderer.sprite;
+            Debug.Log("Transfer!");
 
-            sourceRenderer.enabled = false;
+            int randomIndex = Random.Range(0, pickUpScript.deck.Count);
+            Card sourceCard = pickUpScript.deck[randomIndex];
+
+            destinationRenderer.sprite = sourceCard.GetComponent<SpriteRenderer>().sprite;
+            destinationRenderer.enabled = true; 
+            destinationCard.transform.position = cardSlots[randomIndex].position;
+
+            pickUpScript.deck.RemoveAt(randomIndex);
+            sourceCard.gameObject.SetActive(false);
         }
     }
 }
