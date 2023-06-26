@@ -9,7 +9,7 @@ public class GridMovement : MonoBehaviour
     [SerializeField] public int maxSteps = 3;
 
     private bool isMoving;
-    private Vector3 origPos, targetPos;
+    public Vector3 origPos, targetPos;
     private float timeToMove = 0.2f;
     [SerializeField] private int stepsTaken = 0;
 
@@ -34,7 +34,7 @@ public class GridMovement : MonoBehaviour
             StartCoroutine(MovePlayer(Vector3.right));
     }
 
-    private IEnumerator MovePlayer(Vector3 direction)
+    public IEnumerator MovePlayer(Vector3 direction)
     {
         isMoving = true;
         currentMoveObject = this;

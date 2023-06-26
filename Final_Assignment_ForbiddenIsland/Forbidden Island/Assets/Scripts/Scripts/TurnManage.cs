@@ -15,7 +15,9 @@ public class TurnManage : MonoBehaviour
 
     public PickUp pickUpScript;
 
-    void Start()
+    private bool disableButtons = false;
+
+    private void Start()
     {
         separateButton.interactable = false;
 
@@ -29,13 +31,34 @@ public class TurnManage : MonoBehaviour
             button.onClick.AddListener(() => OpponentButtonPressed(button));
         }
 
-      
-            DisableAllButtonsUntilDrawButtonInactive();
-         
-      
-        }
+        yourTurnButton.onClick.AddListener(PlayerTurnButtonPressed);
+        opponentTurnButton.onClick.AddListener(OpponentTurnButtonPressed);
+    }
 
-       
+    private void Update()
+    {
+        if (disableButtons)
+        {
+            DisableAllButtonsUntilDrawButtonInactive();
+            disableButtons = false;
+        }
+        else
+        {
+            CheckPlayerButtonsInteractable();
+        }
+    }
+
+    private void CheckPlayerButtonsInteractable()
+    {
+        if (pickUpScript.cardsDrawn >= 2)
+        {
+            EnableAllPlayerButtons();
+        }
+        else
+        {
+            DisableAllPlayerButtons();
+        }
+    }
 
     public void PlayerButtonPressed(Button button)
     {
@@ -69,31 +92,9 @@ public class TurnManage : MonoBehaviour
 
     public void PlayerTurnButtonPressed()
     {
-      //  playerEnabledButtonsCount = 0;
-
-        
-
-            if (pickUpScript.cardsDrawn >= 2 )
-            {
-            playerButtons[0].interactable = true;
-            playerButtons[1].interactable = true;
-            playerButtons[2].interactable = true;
-            playerButtons[3].interactable = true;
-
-        }
-            else
-            {
-            playerButtons[0].interactable = false;
-            playerButtons[1].interactable = false;
-            playerButtons[2].interactable = false;
-            playerButtons[3].interactable = false ;
-
-        }
-        
-
         separateButton.interactable = opponentEnabledButtonsCount == maxEnabledButtons;
         EnableAllOpponentButtons();
-        
+
         yourTurnButton.interactable = false;
         opponentTurnButton.interactable = true;
     }
@@ -125,8 +126,8 @@ public class TurnManage : MonoBehaviour
                 disabledCount++;
             }
 
-            //if (disabledCount >= maxEnabledButtons) ;
-                
+            if (disabledCount >= maxEnabledButtons)
+                break;
         }
     }
 
@@ -143,6 +144,14 @@ public class TurnManage : MonoBehaviour
 
             if (disabledCount >= maxEnabledButtons)
                 break;
+        }
+    }
+
+    private void DisableAllPlayerButtons()
+    {
+        foreach (Button button in playerButtons)
+        {
+            button.interactable = false;
         }
     }
 
@@ -164,17 +173,10 @@ public class TurnManage : MonoBehaviour
 
     private void DisableAllButtonsUntilDrawButtonInactive()
     {
-        playerButtons[0].interactable = false;
-        playerButtons[1].interactable = false;
-        playerButtons[2].interactable = false;
-        playerButtons[3].interactable = false;
-
-
-    }
-
-    public void Update()
-    {
-        
+        foreach (Button button in playerButtons)
+        {
+            button.interactable = false;
+        }
     }
     /*
         private System.Collections.IEnumerator EnableButtonsWhenDrawButtonInactive()
