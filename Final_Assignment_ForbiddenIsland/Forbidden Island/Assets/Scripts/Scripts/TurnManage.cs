@@ -26,6 +26,8 @@ public class TurnManage : MonoBehaviour
         {
             button.onClick.AddListener(() => OpponentButtonPressed(button));
         }
+
+        DisableAllButtonsUntilDrawButtonInactive();
     }
 
     public void PlayerButtonPressed(Button button)
@@ -135,6 +137,44 @@ public class TurnManage : MonoBehaviour
         foreach (Button button in opponentButtons)
         {
             button.interactable = true;
+        }
+    }
+
+    private void DisableAllButtonsUntilDrawButtonInactive()
+    {
+        foreach (Button button in playerButtons)
+        {
+            button.interactable = false;
+        }
+
+        foreach (Button button in opponentButtons)
+        {
+            button.interactable = false;
+        }
+
+        StartCoroutine(EnableButtonsWhenDrawButtonInactive());
+    }
+
+    private System.Collections.IEnumerator EnableButtonsWhenDrawButtonInactive()
+    {
+        while (true)
+        {
+            yield return null;
+
+            if (!separateButton.interactable)
+            {
+                foreach (Button button in playerButtons)
+                {
+                    button.interactable = true;
+                }
+
+                foreach (Button button in opponentButtons)
+                {
+                    button.interactable = true;
+                }
+
+                break;
+            }
         }
     }
 }

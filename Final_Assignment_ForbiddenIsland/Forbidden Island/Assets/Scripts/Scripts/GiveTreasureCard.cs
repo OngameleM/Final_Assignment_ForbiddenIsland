@@ -26,7 +26,7 @@ public class GiveTreasureCard : MonoBehaviour
             if (sourceRenderer != null)
             {
                 destinationRenderer.sprite = sourceRenderer.sprite;
-                destinationRenderer.enabled = true; // Enable the sprite renderer in the destination
+                destinationRenderer.enabled = true; 
                 destinationCard.transform.position = cardSlots[randomIndex].position;
 
                 pickUpScript.deck.RemoveAt(randomIndex);

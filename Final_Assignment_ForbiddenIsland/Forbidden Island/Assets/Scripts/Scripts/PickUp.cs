@@ -11,10 +11,13 @@ public class PickUp : MonoBehaviour
     public bool[] availableCards;
 
     public TextMeshProUGUI deckSizeText;
+    public Button drawButton;
+
+    private int cardsDrawn = 0;
 
     public void DrawCard()
     {
-        if (deck.Count >= 1)
+        if (deck.Count >= 1 && cardsDrawn < 2)
         {
             List<int> availableIndices = new List<int>();
 
@@ -35,13 +38,18 @@ public class PickUp : MonoBehaviour
                 selectedCard.transform.position = cardSlots[randomIndex].position;
                 availableCards[randomIndex] = false;
                 deck.Remove(selectedCard);
+
+                cardsDrawn++;
+
+                if (cardsDrawn >= 2)
+                {
+                    drawButton.interactable = false;
+                }
             }
         }
-
-        UpdateDeckSizeText();
     }
 
-    private void UpdateDeckSizeText()
+    public void Update()
     {
         deckSizeText.text = deck.Count.ToString();
     }
