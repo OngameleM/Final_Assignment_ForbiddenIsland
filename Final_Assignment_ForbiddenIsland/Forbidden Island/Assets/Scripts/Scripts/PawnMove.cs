@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+
 public class PawnMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     private RectTransform pawnTransform;
     private Vector2 initialPosition;
     private Canvas canvas;
+    private bool canMove = true;
 
     private void Start()
     {
@@ -24,8 +26,11 @@ public class PawnMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnDrag(PointerEventData eventData)
     {
         // Update the position of the pawn based on the mouse/finger position
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localPoint);
-        pawnTransform.localPosition = localPoint;
+        if (canMove)
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, eventData.position, eventData.pressEventCamera, out Vector2 localPoint);
+            pawnTransform.localPosition = localPoint;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -42,5 +47,10 @@ public class PawnMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         // Snap the pawn to the center of the card
         pawnTransform.anchoredPosition = cardTransform.anchoredPosition;
+    }
+
+    public void SetCanMove(bool move)
+    {
+        canMove = move;
     }
 }

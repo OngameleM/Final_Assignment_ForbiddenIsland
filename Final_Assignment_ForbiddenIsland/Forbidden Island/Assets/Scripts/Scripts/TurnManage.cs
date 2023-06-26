@@ -29,11 +29,10 @@ public class TurnManage : MonoBehaviour
             button.onClick.AddListener(() => OpponentButtonPressed(button));
         }
 
-      /*  if ( pickUpScript.cardsDrawn == 0)
-        {
+      
             DisableAllButtonsUntilDrawButtonInactive();
-         }
-      */
+         
+      
         }
 
        
@@ -173,6 +172,10 @@ public class TurnManage : MonoBehaviour
 
     }
 
+    public void Update()
+    {
+        
+    }
     /*
         private System.Collections.IEnumerator EnableButtonsWhenDrawButtonInactive()
         {
