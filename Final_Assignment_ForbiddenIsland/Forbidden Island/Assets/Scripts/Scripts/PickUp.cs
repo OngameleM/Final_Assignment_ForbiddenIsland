@@ -13,7 +13,9 @@ public class PickUp : MonoBehaviour
     public TextMeshProUGUI deckSizeText;
     public Button drawButton;
 
-    private int cardsDrawn = 0;
+    public int cardsDrawn = 0;
+
+    
 
     public void DrawCard()
     {
@@ -44,6 +46,11 @@ public class PickUp : MonoBehaviour
                 if (cardsDrawn >= 2)
                 {
                     drawButton.interactable = false;
+                }
+
+            else
+                {
+                    drawButton.interactable = true;
                 }
             }
         }

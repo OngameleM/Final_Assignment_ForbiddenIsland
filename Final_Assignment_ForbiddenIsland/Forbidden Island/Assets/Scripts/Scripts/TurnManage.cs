@@ -13,6 +13,8 @@ public class TurnManage : MonoBehaviour
     private int playerEnabledButtonsCount = 0;
     private int opponentEnabledButtonsCount = 0;
 
+    public PickUp pickUpScript;
+
     void Start()
     {
         separateButton.interactable = false;
@@ -27,8 +29,14 @@ public class TurnManage : MonoBehaviour
             button.onClick.AddListener(() => OpponentButtonPressed(button));
         }
 
-        DisableAllButtonsUntilDrawButtonInactive();
-    }
+      /*  if ( pickUpScript.cardsDrawn == 0)
+        {
+            DisableAllButtonsUntilDrawButtonInactive();
+         }
+      */
+        }
+
+       
 
     public void PlayerButtonPressed(Button button)
     {
@@ -62,16 +70,31 @@ public class TurnManage : MonoBehaviour
 
     public void PlayerTurnButtonPressed()
     {
-        playerEnabledButtonsCount = 0;
+      //  playerEnabledButtonsCount = 0;
 
-        foreach (Button button in playerButtons)
-        {
-            button.interactable = true;
+        
+
+            if (pickUpScript.cardsDrawn >= 2 )
+            {
+            playerButtons[0].interactable = true;
+            playerButtons[1].interactable = true;
+            playerButtons[2].interactable = true;
+            playerButtons[3].interactable = true;
+
         }
+            else
+            {
+            playerButtons[0].interactable = false;
+            playerButtons[1].interactable = false;
+            playerButtons[2].interactable = false;
+            playerButtons[3].interactable = false ;
+
+        }
+        
 
         separateButton.interactable = opponentEnabledButtonsCount == maxEnabledButtons;
         EnableAllOpponentButtons();
-
+        
         yourTurnButton.interactable = false;
         opponentTurnButton.interactable = true;
     }
@@ -103,8 +126,8 @@ public class TurnManage : MonoBehaviour
                 disabledCount++;
             }
 
-            if (disabledCount >= maxEnabledButtons)
-                break;
+            //if (disabledCount >= maxEnabledButtons) ;
+                
         }
     }
 
@@ -142,39 +165,34 @@ public class TurnManage : MonoBehaviour
 
     private void DisableAllButtonsUntilDrawButtonInactive()
     {
-        foreach (Button button in playerButtons)
-        {
-            button.interactable = false;
-        }
+        playerButtons[0].interactable = false;
+        playerButtons[1].interactable = false;
+        playerButtons[2].interactable = false;
+        playerButtons[3].interactable = false;
 
-        foreach (Button button in opponentButtons)
-        {
-            button.interactable = false;
-        }
 
-        StartCoroutine(EnableButtonsWhenDrawButtonInactive());
     }
 
-    private System.Collections.IEnumerator EnableButtonsWhenDrawButtonInactive()
-    {
-        while (true)
+    /*
+        private System.Collections.IEnumerator EnableButtonsWhenDrawButtonInactive()
         {
-            yield return null;
+            yield return new WaitUntil(() => separateButton.interactable);
 
-            if (!separateButton.interactable)
+            foreach (Button button in playerButtons)
             {
-                foreach (Button button in playerButtons)
+                if (pickUpScript.drawButton.interactable == false)
                 {
+
                     button.interactable = true;
+
                 }
 
-                foreach (Button button in opponentButtons)
-                {
-                    button.interactable = true;
-                }
+            }
 
-                break;
+            foreach (Button button in opponentButtons)
+            {
+                button.interactable = true;
             }
         }
-    }
+     */
 }

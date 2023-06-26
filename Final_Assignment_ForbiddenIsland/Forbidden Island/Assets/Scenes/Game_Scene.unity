@@ -6534,14 +6534,6 @@ MonoBehaviour:
   - {fileID: 1574828390}
   - {fileID: 1510789119}
   - {fileID: 788402984}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   cardSlots:
   - {fileID: 1754669825}
   - {fileID: 1003406132}
@@ -6551,6 +6543,7 @@ MonoBehaviour:
   availableCards: 0101010101
   deckSizeText: {fileID: 1327121044}
   drawButton: {fileID: 206363764}
+  cardsDrawn: 0
 --- !u!4 &715472440
 Transform:
   m_ObjectHideFlags: 0
@@ -11769,7 +11762,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1180253263}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2091612454}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1199466260
 GameObject:
   m_ObjectHideFlags: 0
@@ -14198,14 +14203,6 @@ MonoBehaviour:
   - {fileID: 1574828390}
   - {fileID: 1510789119}
   - {fileID: 788402984}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   cardSlots:
   - {fileID: 1945402210}
   - {fileID: 1094713797}
@@ -14215,6 +14212,7 @@ MonoBehaviour:
   availableCards: 0101010101
   deckSizeText: {fileID: 1327121044}
   drawButton: {fileID: 977034421}
+  cardsDrawn: 0
 --- !u!4 &1436417064
 Transform:
   m_ObjectHideFlags: 0
@@ -15548,6 +15546,7 @@ MonoBehaviour:
   yourTurnButton: {fileID: 330648305}
   opponentTurnButton: {fileID: 1394224838}
   maxEnabledButtons: 3
+  pickUpScript: {fileID: 1436417063}
 --- !u!4 &1546607464
 Transform:
   m_ObjectHideFlags: 0
@@ -15589,6 +15588,7 @@ MonoBehaviour:
   yourTurnButton: {fileID: 330648305}
   opponentTurnButton: {fileID: 1394224838}
   maxEnabledButtons: 3
+  pickUpScript: {fileID: 715472439}
 --- !u!1 &1550949285
 GameObject:
   m_ObjectHideFlags: 0
@@ -19675,6 +19675,7 @@ GameObject:
   - component: {fileID: 2091612456}
   - component: {fileID: 2091612455}
   - component: {fileID: 2091612459}
+  - component: {fileID: 2091612460}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -19779,6 +19780,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a242bd19146ce0e42a3a3e5c92f00e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2091612460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091612454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1651d0f7d7d38d4e931c11eaea0ea89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faceSprite: {fileID: 0}
+  backSprite: {fileID: 0}
 --- !u!1 &2104635770
 GameObject:
   m_ObjectHideFlags: 0

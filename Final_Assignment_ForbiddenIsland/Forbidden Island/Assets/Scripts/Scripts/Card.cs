@@ -14,7 +14,7 @@ public class Card : MonoBehaviour
 
     private void Start()
     {
-        mod = FindObjectOfType<CardManager>();
+      //  mod = FindObjectOfType<CardManager>();
     }
 
     private void OnMouseDown()
@@ -23,13 +23,15 @@ public class Card : MonoBehaviour
         {
             transform.position = destinationCard.position; 
             transform.rotation = Quaternion.Euler(0f, 0f, -90f); 
+
             hasBeenPlayed = true;
-            mod.availableCardSlots[handIndex] = true;
-            Invoke("MoveToDiscardPile", 2f);
+           // mod.availableCardSlots[handIndex] = true;
+           // Invoke("MoveToDiscardPile", 2f);
+
         }
     }
 
-    void MoveToDiscardPile()
+  /*  void MoveToDiscardPile()
     {
         mod.discardPile.Add(this);
         gameObject.SetActive(false);
@@ -40,4 +42,5 @@ public class Card : MonoBehaviour
         mod.discardPile.Add(this);
         gameObject.SetActive(false);
     }
+  */
 }
